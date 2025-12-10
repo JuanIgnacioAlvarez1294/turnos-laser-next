@@ -2,37 +2,44 @@
 
 import React, { useEffect, useState } from "react";
 import { Turno } from "@/types";
+import { getServiciosMap } from "@/services/turnos.service";
 import { getTurnos, updateTurno, deleteTurno } from "@/services/turnos.service";
 import { Trash2, Edit, XCircle } from "lucide-react";
 
 const TurnosTable: React.FC = () => {
+  const [serviciosMap, setServiciosMap] = useState<Record<string, string>>({});
   const [turnos, setTurnos] = useState<Turno[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadTurnos = async () => {
+  const loadData = async () => {
     try {
-      const data = await getTurnos();
-      setTurnos(data);
+      const [mapServicios, dataTurnos] = await Promise.all([
+        getServiciosMap(),
+        getTurnos()
+      ]);
+
+      setServiciosMap(mapServicios);
+      setTurnos(dataTurnos);
     } catch (error) {
-      console.error("Error fetching turnos:", error);
+      console.error("Error cargando datos:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadTurnos();
+    loadData();
   }, []);
 
   const cancelarTurno = async (id: string) => {
     await updateTurno(id, { estado: "cancelado" });
-    loadTurnos();
+    loadData();
   };
 
   const borrarTurno = async (id: string) => {
     if (!confirm("¿Seguro que deseas eliminar este turno?")) return;
     await deleteTurno(id);
-    loadTurnos();
+    loadData();
   };
 
   if (loading) return <div>Cargando turnos...</div>;
@@ -56,10 +63,15 @@ const TurnosTable: React.FC = () => {
           {turnos.map((turno) => (
             <tr key={turno.turnoId} className="text-center">
               <td className="py-2 px-4 border-b">{turno.turnoId}</td>
+
               <td className="py-2 px-4 border-b">
                 {turno.nombre} {turno.apellido}
               </td>
-              <td className="py-2 px-4 border-b">{turno.servicioId}</td>
+
+              <td className="py-2 px-4 border-b">
+                {serviciosMap[turno.servicioId] ?? "Servicio eliminado"}
+              </td>
+
               <td className="py-2 px-4 border-b">{turno.fecha}</td>
               <td className="py-2 px-4 border-b">{turno.hora}</td>
 
@@ -79,10 +91,9 @@ const TurnosTable: React.FC = () => {
 
               <td className="py-2 px-4 border-b flex justify-center gap-3">
 
-                {/* BOTÓN MODIFICAR */}
                 <button
                   onClick={() =>
-                    (window.location.href = `/admin/turnos/${turno.turnoId}`)
+                    (window.location.href = `/admin/turnos/${encodeURIComponent(turno.turnoId)}`)
                   }
                   className="bg-blue-600 text-white px-3 py-1 rounded flex items-center gap-1 hover:bg-blue-700"
                 >
@@ -90,7 +101,6 @@ const TurnosTable: React.FC = () => {
                   Modificar
                 </button>
 
-                {/* BOTÓN CANCELAR */}
                 <button
                   onClick={() => cancelarTurno(turno.turnoId)}
                   className="bg-yellow-500 text-white px-3 py-1 rounded flex items-center gap-1 hover:bg-yellow-600"
@@ -99,7 +109,6 @@ const TurnosTable: React.FC = () => {
                   Cancelar
                 </button>
 
-                {/* ICONO BORRAR */}
                 <button
                   onClick={() => borrarTurno(turno.turnoId)}
                   className="bg-red-600 text-white p-2 rounded hover:bg-red-700"
