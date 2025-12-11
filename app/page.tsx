@@ -5,80 +5,136 @@ export default function HomePage() {
   return (
     <div className="overflow-x-hidden">
 
-      {/* HERO */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/hero-laser.jpg')" }}>
-        
-        <div className="absolute inset-0 bg-black/50"></div>
+      {/* 🌸 HERO PRINCIPAL */}
+      <section
+        className="relative h-[80vh] flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/hero-laser.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-rosaBB/40"></div>
 
-        <div className="relative z-10 text-center text-white px-4 max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Bienvenida a Turnos Láser
+        <div className="relative z-10 text-center px-6 max-w-3xl animate-fadeIn">
+          <h1 className="text-4xl md:text-6xl font-bold text-rosaFuerte drop-shadow-lg">
+            Láser Divino
           </h1>
-          <p className="text-lg md:text-xl mb-6">
-            Depilación láser profesional para una piel suave, segura y duradera.
+
+          <p className="mt-4 text-lg md:text-xl text-gray-700 font-medium bg-white/50 px-4 py-2 rounded-xl inline-block backdrop-blur">
+            Depilación láser profesional con resultados reales y seguros.
           </p>
+
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/reservas">
+              <button className="btn-principal px-8 py-3 rounded-full text-lg">
+                Reservar Turno
+              </button>
+            </Link>
+
+            <Link href="#servicios">
+              <button className="btn-secundario px-8 py-3 rounded-full text-lg">
+                Ver Servicios
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 🌸 SECCIÓN SOBRE */}
+      <section className="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div className="animate-fadeIn">
+          <h2 className="text-3xl font-bold text-rosaFuerte mb-4">
+            Tecnología de Última Generación
+          </h2>
+
+          <p className="text-gray-700 mb-4 leading-relaxed">
+            Lográ una piel suave desde las primeras sesiones gracias a nuestra
+            tecnología láser segura, moderna y apta para todo tipo de piel.
+          </p>
+
+          <p className="text-gray-700 leading-relaxed">
+            Atención personalizada, confort en cada sesión y resultados reales.
+          </p>
+
           <Link href="/reservas">
-            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg shadow-lg">
-              Reservar Turno
-            </button>
+            <button className="btn-principal mt-6">Agendar Turno</button>
           </Link>
         </div>
-      </section>
 
-
-      {/* SECCIÓN SOBRE DEPILACIÓN */}
-      <section className="py-16 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <h2 className="text-3xl font-bold mb-4">Depilación Láser de Alta Tecnología</h2>
-          <p className="text-gray-700 mb-4">
-            Disfrutá de resultados visibles desde la primera sesión. Nuestro sistema 
-            está diseñado para ofrecer máxima eficacia con mínimo dolor.
-          </p>
-          <p className="text-gray-700">
-            Atendemos con profesionalismo, productos de calidad y un enfoque 
-            personalizado para cada paciente.
-          </p>
+        <div className="flex justify-center">
+          <Image
+            src="/images/laser-woman.jpg"
+            width={600}
+            height={400}
+            alt="Depilación láser"
+            className="rounded-xl shadow-xl"
+          />
         </div>
-
-        <Image
-          src="/images/laser-woman.jpg"
-          width={600}
-          height={400}
-          alt="Depilación láser"
-          className="rounded-xl shadow-lg"
-        />
       </section>
 
-
-      {/* SERVICIOS */}
-      <section className="bg-gray-50 py-16">
+      {/* 🌸 SERVICIOS */}
+      <section id="servicios" className="bg-rosaPastel/40 py-20">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-10">Nuestros Servicios</h2>
+          <h2 className="text-3xl font-bold text-rosaFuerte mb-10">
+            Nuestros Servicios
+          </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-              <Image src="/images/service-legs.jpg" width={300} height={200} alt="Piernas" className="rounded-lg mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Piernas Completas</h3>
-              <p className="text-gray-600">Resultados duraderos con tecnología avanzada.</p>
+          <div className="grid md:grid-cols-3 gap-10">
+            {/* Card 1 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
+              <Image
+                src="/images/service-legs.jpg"
+                width={300}
+                height={200}
+                alt="Piernas Completas"
+                className="rounded-xl mb-4"
+              />
+
+              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+                Piernas Completas
+              </h3>
+              <p className="text-gray-600">
+                Eliminación duradera y segura para una suavidad increíble.
+              </p>
             </div>
 
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-              <Image src="/images/service-face.jpg" width={300} height={200} alt="Rostro" className="rounded-lg mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Rostro</h3>
-              <p className="text-gray-600">Tratamientos suaves para pieles sensibles.</p>
+            {/* Card 2 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
+              <Image
+                src="/images/service-face.jpg"
+                width={300}
+                height={200}
+                alt="Rostro"
+                className="rounded-xl mb-4"
+              />
+
+              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+                Rostro
+              </h3>
+              <p className="text-gray-600">
+                Ideal para pieles sensibles. Suave, seguro y eficaz.
+              </p>
             </div>
 
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-              <Image src="/images/service-arms.jpg" width={300} height={200} alt="Brazos" className="rounded-lg mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Brazos</h3>
-              <p className="text-gray-600">Olvidate del rasurado constante.</p>
+            {/* Card 3 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
+              <Image
+                src="/images/service-arms.jpg"
+                width={300}
+                height={200}
+                alt="Brazos"
+                className="rounded-xl mb-4"
+              />
+
+              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+                Brazos
+              </h3>
+              <p className="text-gray-600">
+                Decile adiós al rasurado frecuente. Resultados duraderos.
+              </p>
             </div>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-12">
             <Link href="/reservas">
-              <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow">
+              <button className="btn-principal px-8 py-3 rounded-full text-lg">
                 Ver Precios y Reservar
               </button>
             </Link>
@@ -86,35 +142,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 🌸 POR QUÉ ELEGIRNOS */}
+      <section className="py-20 max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center text-rosaFuerte mb-12">
+          ¿Por qué elegir Láser Divino?
+        </h2>
 
-      {/* POR QUÉ ELEGIRNOS */}
-      <section className="py-16 max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-10">¿Por qué elegirnos?</h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-6 border rounded-xl shadow-sm text-center">
-            <h3 className="text-xl font-semibold mb-2">Atención Personalizada</h3>
-            <p className="text-gray-600">Cada paciente recibe un tratamiento adaptado a su piel.</p>
+        <div className="grid md:grid-cols-3 gap-10 text-center">
+          <div className="p-8 bg-white rounded-xl shadow">
+            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+              Atención Personalizada
+            </h3>
+            <p className="text-gray-600">Cada piel recibe su tratamiento ideal.</p>
           </div>
 
-          <div className="p-6 border rounded-xl shadow-sm text-center">
-            <h3 className="text-xl font-semibold mb-2">Tecnología Profesional</h3>
-            <p className="text-gray-600">Equipos modernos que aseguran eficacia y confort.</p>
+          <div className="p-8 bg-white rounded-xl shadow">
+            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+              Tecnología Premium
+            </h3>
+            <p className="text-gray-600">Equipamiento moderno, seguro y eficaz.</p>
           </div>
 
-          <div className="p-6 border rounded-xl shadow-sm text-center">
-            <h3 className="text-xl font-semibold mb-2">Resultados Reales</h3>
-            <p className="text-gray-600">Piel suave por mucho más tiempo.</p>
+          <div className="p-8 bg-white rounded-xl shadow">
+            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
+              Resultados Reales
+            </h3>
+            <p className="text-gray-600">La suavidad que buscás, por más tiempo.</p>
           </div>
         </div>
       </section>
 
-
-      {/* BOTÓN DE WHATSAPP */}
+      {/* 🌸 BOTÓN WHATSAPP */}
       <a
-        href="https://wa.me/549XXXXXXXXX"
+        href="https://wa.me/+5491136723999"
         target="_blank"
-        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition"
+        className="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg hover:scale-110 transition"
       >
         <Image src="/icons/whatsapp.svg" width={40} height={40} alt="WhatsApp" />
       </a>

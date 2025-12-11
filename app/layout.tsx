@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
 
 export const metadata: Metadata = {
-  title: 'Turnos Láser',
-  description: 'Reserva tu turno para depilación láser',
+  title: 'Láser Divino',
+  description: 'Depilación Láser - Turnos online',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

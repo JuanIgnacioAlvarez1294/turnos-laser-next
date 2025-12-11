@@ -7,44 +7,41 @@ html {
 }
 
 body {
-  @apply bg-gray-50 text-gray-900;
+  background-color: #FFF5FA; /* rosa.fondo */
+  color: #4D4D4D; /* gris texto */
+  font-family: "Inter", sans-serif;
 }
 
+/* TITULOS */
 h1, h2, h3, h4, h5, h6 {
-  @apply font-bold;
+  @apply font-bold text-gris-texto;
 }
 
+/* LINKS */
 a {
-  @apply text-blue-600 hover:text-blue-500;
+  @apply text-rosa-oscuro hover:text-rosa-fuerte transition;
 }
 
-button {
-  @apply bg-blue-600 text-white font-semibold py-2 px-4 rounded;
+/* BOTONES */
+.btn-principal {
+  @apply bg-rosa font-semibold py-2 px-4 rounded-xl shadow-md 
+         hover:bg-rosa-hover transition text-black;
 }
 
+.btn-secundario {
+  @apply border border-rosa-fuerte text-rosa-fuerte px-4 py-2 rounded-xl
+         hover:bg-rosa-pastel transition;
+}
+
+/* CONTENEDOR */
 .container {
   @apply mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-@media (max-width: 640px) {
-  .container {
-    @apply px-2;
-  }
-}
-
-/* ------------------------------------------------------ */
-/*  ✨ ANIMACIONES PERSONALIZADAS (Login moderno)          */
-/* ------------------------------------------------------ */
-
+/* ANIMACIONES */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fadeIn {
