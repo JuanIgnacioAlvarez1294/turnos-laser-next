@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Turno, EstadoTurno, EstadoPago } from "@/types";
+import { Turno } from "@/types";
 import {
   getTurnoById,
   updateTurno,
@@ -10,8 +10,14 @@ import {
 } from "@/services/turnos.service";
 
 export default function EditTurnoPage() {
-  const { turnoId } = useParams();
+  const params = useParams();
   const router = useRouter();
+
+  // ID crudo que viene de la URL
+  const rawId = params.turnoId as string;
+
+  // ID decodificado (email real)
+  const decodedId = decodeURIComponent(rawId);
 
   const [turno, setTurno] = useState<Turno | null>(null);
   const [servicios, setServicios] = useState<any[]>([]);
@@ -19,15 +25,16 @@ export default function EditTurnoPage() {
 
   useEffect(() => {
     const loadTurno = async () => {
-      const data = await getTurnoById(turnoId as string);
+      const data = await getTurnoById(decodedId);
       const serv = await getServicios();
+
       setTurno(data);
       setServicios(serv);
       setLoading(false);
     };
 
     loadTurno();
-  }, [turnoId]);
+  }, [decodedId]);
 
   const handleChange = (e: any) => {
     if (!turno) return;
@@ -35,19 +42,19 @@ export default function EditTurnoPage() {
   };
 
   const guardarCambios = async () => {
-    await updateTurno(turnoId as string, turno!);
+    await updateTurno(decodedId, turno!);
     alert("Turno actualizado correctamente");
     router.push("/admin");
   };
 
   const marcarCompletado = async () => {
-    await updateTurno(turnoId as string, { estado: "completado" });
+    await updateTurno(decodedId, { estado: "completado" });
     alert("Turno marcado como COMPLETADO");
     router.push("/admin");
   };
 
   const cancelarTurno = async () => {
-    await updateTurno(turnoId as string, { estado: "cancelado" });
+    await updateTurno(decodedId, { estado: "cancelado" });
     alert("Turno CANCELADO");
     router.push("/admin");
   };
@@ -95,7 +102,7 @@ export default function EditTurnoPage() {
         className="border p-2 w-full rounded mb-4"
       />
 
-      {/* Email de contacto */}
+      {/* Email Contacto */}
       <label className="block mb-2">Email de Contacto</label>
       <input
         name="emailContacto"
@@ -140,7 +147,7 @@ export default function EditTurnoPage() {
         ))}
       </select>
 
-      {/* Estado */}
+      {/* Estado del turno */}
       <label className="block mb-2">Estado del Turno</label>
       <select
         name="estado"

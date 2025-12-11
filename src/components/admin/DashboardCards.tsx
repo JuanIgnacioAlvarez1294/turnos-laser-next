@@ -9,23 +9,13 @@ const DashboardCards: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTurnos = async () => {
-      try {
-        const data = await getTurnos();
-        setTurnos(data);
-      } catch (error) {
-        console.error("Error cargando turnos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTurnos();
+    getTurnos().then((data) => {
+      setTurnos(data);
+      setLoading(false);
+    });
   }, []);
 
-  if (loading) {
-    return <div className="text-center mt-4">Cargando estadísticas...</div>;
-  }
+  if (loading) return <div className="text-center mt-4">Cargando estadísticas...</div>;
 
   const total = turnos.length;
   const pendientes = turnos.filter((t) => t.estado === "pendiente").length;
@@ -45,15 +35,14 @@ const DashboardCards: React.FC = () => {
         <div
           key={index}
           className="
-            bg-white shadow-md rounded-xl p-6 
+            bg-white border border-rosa-pastel 
+            shadow-lg rounded-xl p-6
             transition-all duration-300 hover:shadow-xl hover:-translate-y-1
             flex flex-col items-center text-center
           "
         >
-          <h2 className="text-lg font-semibold text-gray-700">{card.title}</h2>
-          <p className="text-4xl font-bold mt-2 text-indigo-600">
-            {card.value}
-          </p>
+          <h2 className="text-lg font-semibold text-rosa-oscuro">{card.title}</h2>
+          <p className="text-4xl font-bold mt-2 text-rosa-fuerte">{card.value}</p>
         </div>
       ))}
     </div>

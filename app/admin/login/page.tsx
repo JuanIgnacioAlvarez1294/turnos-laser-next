@@ -29,30 +29,35 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-blue-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-rosaBB to-rosaPastel flex items-center justify-center p-4">
+
+      <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-10 w-full max-w-md animate-fadeIn border border-rosaPastel">
+        <h1 className="text-3xl font-bold text-center mb-6 text-rosaFuerte">
           Panel Administrativo
         </h1>
 
         <form onSubmit={loginAdmin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">Correo</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Correo
+            </label>
             <input
               type="email"
               required
-              className="w-full p-2 border rounded mt-1"
+              className="w-full p-3 border border-rosaPastel rounded-xl mt-1 focus:ring-2 focus:ring-rosaFuerte outline-none transition"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Contraseña</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Contraseña
+            </label>
             <input
               type="password"
               required
-              className="w-full p-2 border rounded mt-1"
+              className="w-full p-3 border border-rosaPastel rounded-xl mt-1 focus:ring-2 focus:ring-rosaFuerte outline-none transition"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -60,19 +65,19 @@ export default function AdminLoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
+            className="w-full btn-principal py-3 rounded-xl font-semibold transition shadow-md"
             disabled={loading}
           >
             {loading ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
 
-        <p className="text-center mt-4 text-sm text-blue-700 hover:underline cursor-pointer">
+        <p className="text-center mt-4 text-sm text-rosaFuerte font-medium cursor-pointer hover:underline">
           ¿Olvidaste tu contraseña?
         </p>
 
         <p className="text-center mt-2 text-sm text-gray-500">
-          Solo el administrador puede crear cuentas desde Firebase.
+          Solo el administrador puede gestionar cuentas desde Firebase.
         </p>
       </div>
     </div>
