@@ -1,4 +1,3 @@
-// app/reservas/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -29,7 +28,6 @@ export default function ReservasPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Reservar Turno</h1>
       <ReservaTurnoForm servicios={servicios} user={user ?? null} />
     </div>
   );
