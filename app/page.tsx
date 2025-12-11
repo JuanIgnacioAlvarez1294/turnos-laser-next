@@ -1,10 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
     <div className="overflow-x-hidden">
-
       {/* 🌸 HERO PRINCIPAL */}
       <section
         className="relative h-[80vh] flex items-center justify-center bg-cover bg-center"
@@ -153,32 +152,47 @@ export default function HomePage() {
             <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
               Atención Personalizada
             </h3>
-            <p className="text-gray-600">Cada piel recibe su tratamiento ideal.</p>
+            <p className="text-gray-600">
+              Cada piel recibe su tratamiento ideal.
+            </p>
           </div>
 
           <div className="p-8 bg-white rounded-xl shadow">
             <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
               Tecnología Premium
             </h3>
-            <p className="text-gray-600">Equipamiento moderno, seguro y eficaz.</p>
+            <p className="text-gray-600">
+              Equipamiento moderno, seguro y eficaz.
+            </p>
           </div>
 
           <div className="p-8 bg-white rounded-xl shadow">
             <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
               Resultados Reales
             </h3>
-            <p className="text-gray-600">La suavidad que buscás, por más tiempo.</p>
+            <p className="text-gray-600">
+              La suavidad que buscás, por más tiempo.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* 🌸 BOTÓN WHATSAPP */}
+      {/* 🌸 BOTÓN WHATSAPP COLOR ROSA FUERTE */}
       <a
         href="https://wa.me/+5491136723999"
         target="_blank"
-        className="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg hover:scale-110 transition"
+        aria-label="WhatsApp"
+        className="fixed bottom-6 right-6 bg-[#f878a2] p-4 rounded-full shadow-xl
+                  hover:scale-110 transition-all duration-300
+                  flex items-center justify-center animate-pulse-levemente"
       >
-        <Image src="/icons/whatsapp.svg" width={40} height={40} alt="WhatsApp" />
+        <Image
+          src="/icons/whatsapp.svg"
+          width={34}
+          height={34}
+          alt="WhatsApp"
+          className="invert brightness-0 saturate-0"
+        />
       </a>
     </div>
   );
