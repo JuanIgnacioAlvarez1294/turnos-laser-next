@@ -1,22 +1,58 @@
-import React from 'react';
+import React from "react";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-rosa-pastel text-gris-texto py-6 mt-10">
-      <div className="container mx-auto text-center space-y-2">
-        <p className="text-sm">
-          © {new Date().getFullYear()}{' '}
-          <span className="font-semibold text-rosa-oscuro">Láser Divino</span>.
-          Todos los derechos reservados.
-        </p>
+    <footer className="bg-[#f8d7e3] text-gray-700 mt-16 pt-4 pb-3">
+      <div className="max-w-6xl mx-auto px-6">
 
-        <div className="text-sm space-x-4">
-          <a href="/privacy" className="hover:text-rosa-oscuro">
-            Política de Privacidad
+        {/* PARTE SUPERIOR - AHORA MÁS COMPACTA */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-2">
+
+          {/* MARCA + SUBTÍTULO */}
+          <div className="text-center md:text-left leading-tight">
+            <h3 className="text-xl font-bold text-rosaFuerte">
+              Láser Divino
+            </h3>
+            <p className="text-xs text-gray-600 -mt-1">
+              Belleza & Tecnología Láser
+            </p>
+          </div>
+
+          {/* BOTÓN INSTAGRAM - HOVER CORREGIDO */}
+          <a
+            href="https://www.instagram.com/laserdivino/"
+            target="_blank"
+            className="
+              flex items-center gap-3 
+              bg-white/70 px-4 py-2 rounded-full 
+              shadow-md backdrop-blur 
+              border border-rosaFuerte/30
+              transition 
+              hover:bg-rosaFuerte hover:text-black hover:border-rosaFuerte
+            "
+          >
+            <Image
+              src="/icons/instagram-pink.svg"
+              width={24}
+              height={24}
+              alt="Instagram"
+              className="transition"
+            />
+            <span className="text-sm font-medium">
+              Seguinos en Instagram
+            </span>
           </a>
-          <a href="/terms" className="hover:text-rosa-oscuro">
-            Términos de Servicio
-          </a>
+
+        </div>
+
+        {/* LÍNEA DIVISORIA */}
+        <div className="border-t border-rosa-hover/40 pt-3 text-center">
+          <p className="text-xs text-gray-700">
+            © {new Date().getFullYear()}{" "}
+            <span className="font-semibold text-rosaFuerte">Láser Divino</span>.
+            Todos los derechos reservados.
+          </p>
         </div>
       </div>
     </footer>
