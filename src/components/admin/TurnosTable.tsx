@@ -73,7 +73,7 @@ const TurnosTable: React.FC = () => {
                 <span
                   className={
                     turno.estado === "pendiente"
-                      ? "text-rosa.oscuro"
+                      ? "text-rosa-oscuro"
                       : turno.estado === "completado"
                       ? "text-green-600"
                       : "text-red-500"

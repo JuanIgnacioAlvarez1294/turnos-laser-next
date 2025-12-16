@@ -27,9 +27,9 @@ const Footer: React.FC = () => {
               flex items-center gap-3 
               bg-white/70 px-4 py-2 rounded-full 
               shadow-md backdrop-blur 
-              border border-rosaFuerte/30
+              border border-rosa-fuerte/30
               transition 
-              hover:bg-rosaFuerte hover:text-black hover:border-rosaFuerte
+              hover:bg-rosa-fuerte hover:text-white hover:border-rosa-fuerte
             "
           >
             <Image

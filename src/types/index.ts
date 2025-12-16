@@ -1,31 +1,71 @@
+/* ==============================
+   ESTADOS
+============================== */
+
 export type EstadoTurno =
   | "pendiente"
   | "reservado"
   | "cancelado"
-  | "completado";
+  | "completado"
+  | 'confirmado';
 
-export type EstadoPago = "pendiente" | "aprobado";
+export type EstadoPago =
+  | "pendiente"
+  | "aprobado"
+  | "rechazado";
+
+/* ==============================
+   TURNO (MODELO COMPLETO – ADMIN)
+============================== */
 
 export interface Turno {
   turnoId: string;
-  userId: string;
+
+  // Relación / sistema
+  userId: string;              // "public" para reservas web
+  sucursal: string;            // "principal"
+  createdAt?: Date;
+
+  // Cliente
   nombre: string;
   apellido: string;
   telefono: string;
   email: string;
+  emailContacto: string;
+
+  // Reserva
+  servicioId: string;
+  fecha: string;               // YYYY-MM-DD
+  hora: string;                // HH:mm
+  tiempoEstimado: string;      // "30"
+
+  // Estados
+  estado: EstadoTurno;
+  pago: EstadoPago;
+}
+
+/* ==============================
+   INPUT PARA CREAR TURNO (WEB)
+============================== */
+
+export interface CreateTurnoInput {
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  email: string;
+  emailContacto: string;
 
   servicioId: string;
   fecha: string;
   hora: string;
 
   estado: EstadoTurno;
-  sucursal: string;
   pago: EstadoPago;
-
-  tiempoEstimado: string;
-  emailContacto: string; 
-  createdAt?: Date;
 }
+
+/* ==============================
+   SERVICIOS
+============================== */
 
 export interface Servicio {
   id: string;

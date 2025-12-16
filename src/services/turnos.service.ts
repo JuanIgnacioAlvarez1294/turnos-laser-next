@@ -11,7 +11,7 @@ import {
   where,
   doc,
 } from "firebase/firestore";
-import { Turno } from "@/types";
+import { CreateTurnoInput, Turno } from "@/types";
 
 // Tipo de servicios (promociones)
 export type ServicioFromDB = {
@@ -29,6 +29,19 @@ export const getServicios = async (): Promise<ServicioFromDB[]> => {
   const snap = await getDocs(collection(db, "servicios"));
   return snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
 };
+
+export const getServicioById = async (id: string) => {
+  const ref = doc(db, "servicios", id);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) return null;
+
+  return {
+    id: snap.id,
+    ...(snap.data() as any),
+  };
+};
+
 
 /* ---------------------------------------------
    OBTENER TODOS LOS TURNOS
@@ -48,31 +61,36 @@ export const getTurnos = async (): Promise<Turno[]> => {
    OBTENER UN TURNO POR ID
 ---------------------------------------------- */
 export const getTurnoById = async (id: string): Promise<Turno | null> => {
-  // Si el ID ya viene encodeado NO lo volvemos a encodear
-  const safeId = id.includes('%40') ? id : encodeURIComponent(id.toLowerCase());
-
+  const safeId = id.includes("%40") ? id : encodeURIComponent(id.toLowerCase());
   const ref = doc(db, "turnos", safeId);
   const snap = await getDoc(ref);
 
   if (!snap.exists()) return null;
 
-  return {
-    ...(snap.data() as Turno),
-    turnoId: safeId,
-  };
+  return snap.data() as Turno;
 };
 
 /* ---------------------------------------------
    CREAR TURNO (email como ID del documento)
 ---------------------------------------------- */
 export const createTurno = async (
-  turno: Omit<Turno, "turnoId">
+  data: CreateTurnoInput
 ): Promise<string> => {
-  const id = encodeURIComponent(turno.emailContacto.toLowerCase());
+  const id = encodeURIComponent(data.email.toLowerCase());
+
   const ref = doc(db, "turnos", id);
 
-  await setDoc(ref, { ...turno, turnoId: id });
+  const turno: Turno = {
+    turnoId: id,
+    userId: "public",
+    sucursal: "principal",
+    tiempoEstimado: "30",
+    createdAt: new Date(),
 
+    ...data,
+  };
+
+  await setDoc(ref, turno);
   return id;
 };
 

@@ -29,10 +29,10 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rosaBB to-rosaPastel flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-rosa to-rosa-pastel flex items-center justify-center p-4">
 
-      <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-10 w-full max-w-md animate-fadeIn border border-rosaPastel">
-        <h1 className="text-3xl font-bold text-center mb-6 text-rosaFuerte">
+      <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-10 w-full max-w-md animate-fadeIn border border-rosa-pastel">
+        <h1 className="text-3xl font-bold text-center mb-6 text-rosa-fuerte">
           Panel Administrativo
         </h1>
 
@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
             <input
               type="email"
               required
-              className="w-full p-3 border border-rosaPastel rounded-xl mt-1 focus:ring-2 focus:ring-rosaFuerte outline-none transition"
+              className="w-full p-3 border border-rosa-pastel rounded-xl mt-1 focus:ring-2 focus:ring-rosa-fuerte outline-none transition"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
             <input
               type="password"
               required
-              className="w-full p-3 border border-rosaPastel rounded-xl mt-1 focus:ring-2 focus:ring-rosaFuerte outline-none transition"
+              className="w-full p-3 border border-rosa-pastel rounded-xl mt-1 focus:ring-2 focus:ring-rosa-fuerte outline-none transition"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -72,12 +72,12 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        <p className="text-center mt-4 text-sm text-rosaFuerte font-medium cursor-pointer hover:underline">
+        <p className="text-center mt-4 text-sm text-rosa-fuerte font-medium cursor-pointer hover:underline">
           ¿Olvidaste tu contraseña?
         </p>
 
         <p className="text-center mt-2 text-sm text-gray-500">
-          Solo el administrador puede gestionar cuentas desde Firebase.
+          Solo el administrador puede gestionar cuentas.
         </p>
       </div>
     </div>
