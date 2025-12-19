@@ -9,10 +9,7 @@ export type EstadoTurno =
   | "completado"
   | 'confirmado';
 
-export type EstadoPago =
-  | "pendiente"
-  | "aprobado"
-  | "rechazado";
+export type EstadoPago = 'pendiente' | 'sena' | 'total';
 
 /* ==============================
    TURNO (MODELO COMPLETO – ADMIN)
@@ -40,7 +37,7 @@ export interface Turno {
   tiempoEstimado: string;      // "30"
 
   // Estados
-  estado: EstadoTurno;
+  estado: 'pendiente' | 'reservado' | 'completado' | 'cancelado';
   pago: EstadoPago;
 }
 
