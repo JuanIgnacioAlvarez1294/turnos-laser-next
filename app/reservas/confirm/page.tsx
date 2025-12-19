@@ -84,6 +84,7 @@ export default function ConfirmPage() {
           precio: monto,
           turnoId,
           email,
+          tipoPago,
         }),
       });
 
@@ -95,7 +96,6 @@ export default function ConfirmPage() {
 
       // 4️⃣ Redirigir a Mercado Pago
       window.location.href = data.init_point;
-
     } catch (error) {
       toast.error('Error al crear el turno o iniciar el pago');
       console.error(error);
@@ -110,53 +110,76 @@ export default function ConfirmPage() {
 
       {/* 🧾 TARJETA */}
       <div className="bg-white rounded-2xl shadow p-6 space-y-3">
-        <p><strong>Servicio:</strong> {servicioId}</p>
-        <p><strong>Nombre:</strong> {nombre} {apellido}</p>
-        <p><strong>Email:</strong> {email}</p>
-        <p><strong>Teléfono:</strong> {telefono}</p>
-        <p><strong>Fecha:</strong> {fecha}</p>
-        <p><strong>Hora:</strong> {hora}</p>
+        <p>
+          <strong>Servicio:</strong> {servicioId}
+        </p>
+        <p>
+          <strong>Nombre:</strong> {nombre} {apellido}
+        </p>
+        <p>
+          <strong>Email:</strong> {email}
+        </p>
+        <p>
+          <strong>Teléfono:</strong> {telefono}
+        </p>
+        <p>
+          <strong>Fecha:</strong> {fecha}
+        </p>
+        <p>
+          <strong>Hora:</strong> {hora}
+        </p>
       </div>
 
-      {/* 💳 INFO PAGO */}
-      <div className="mt-6 bg-rosa-pastel/40 p-4 rounded-xl text-sm text-gray-700">
+      {/* 💳 PAGO */}
+      <div className="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-xl shadow-sm">
         {loadingPrecio ? (
-          <p>Cargando precio del servicio...</p>
+          <p className="text-pink-700">Cargando precio del servicio...</p>
         ) : (
           <>
-            <p>
+            <p className="font-medium text-pink-700">
               💗 Para confirmar tu reserva debés abonar una seña del{' '}
               <strong>50%</strong> o el total del servicio.
             </p>
-            <p className="mt-2"><strong>Total:</strong> ${precioTotal}</p>
-            <p><strong>Seña (50%):</strong> ${sena}</p>
+
+            <div className="mt-3 text-pink-700 space-y-1">
+              <p>
+                Precio total: <strong>${precioTotal}</strong>
+              </p>
+              <p>
+                Seña (50%): <strong>${sena}</strong>
+              </p>
+            </div>
+
+            {/* 💰 BOTONES */}
+            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => setTipoPago('sena')}
+                className={`flex-1 text-center p-3 rounded-xl border transition
+            ${
+              tipoPago === 'sena'
+                ? 'bg-pink-200 border-pink-400 text-pink-900 font-semibold'
+                : 'bg-white border-pink-300 text-pink-700 hover:bg-pink-100'
+            }`}
+              >
+                Pagar seña 50%
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTipoPago('total')}
+                className={`flex-1 text-center p-3 rounded-xl border transition
+            ${
+              tipoPago === 'total'
+                ? 'bg-pink-200 border-pink-400 text-pink-900 font-semibold'
+                : 'bg-white border-pink-300 text-pink-700 hover:bg-pink-100'
+            }`}
+              >
+                Pagar total
+              </button>
+            </div>
           </>
         )}
-      </div>
-
-      {/* 💰 BOTONES DE PAGO */}
-      <div className="mt-6 grid grid-cols-2 gap-4">
-        <button
-          onClick={() => setTipoPago('sena')}
-          className={`py-3 rounded-lg border ${
-            tipoPago === 'sena'
-              ? 'bg-rosa-fuerte text-white'
-              : 'border-rosa-fuerte text-rosa-fuerte'
-          }`}
-        >
-          Pagar seña 50%
-        </button>
-
-        <button
-          onClick={() => setTipoPago('total')}
-          className={`py-3 rounded-lg border ${
-            tipoPago === 'total'
-              ? 'bg-rosa-fuerte text-white'
-              : 'border-rosa-fuerte text-rosa-fuerte'
-          }`}
-        >
-          Pagar total
-        </button>
       </div>
 
       {/* ✅ CONFIRMAR */}
@@ -171,7 +194,7 @@ export default function ConfirmPage() {
 
         <button
           onClick={() => router.back()}
-          className="w-full mt-6 py-3 rounded-lg border border-rosa text-rosa-fuerte hover:bg-gray-100 transition"
+          className="btn-principal w-full mt-8 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Volver a la página anterior
         </button>

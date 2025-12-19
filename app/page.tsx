@@ -1,197 +1,231 @@
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="overflow-x-hidden">
-      {/* 🌸 HERO PRINCIPAL */}
-      <section
-        className="relative h-[80vh] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/hero-laser.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-rosaBB/40"></div>
+    <div className="overflow-x-hidden bg-rosa-fondo text-gris-texto">
+      {/* 🌸 HERO */}
+      <section className="relative min-h-[85vh] flex items-center justify-center">
+        <Image
+          src="/images/hero-principal.jpg" // 👉 reemplazar imagen hero principal
+          alt="Laser Divino"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-rosa-fondo/70 backdrop-blur-sm" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl animate-fadeIn">
-          <h1 className="text-4xl md:text-6xl font-bold text-rosaFuerte drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold text-rosa-oscuro mb-4">
             Láser Divino
           </h1>
-
-          <p className="mt-4 text-lg md:text-xl text-gray-700 font-medium bg-white/50 px-4 py-2 rounded-xl inline-block backdrop-blur">
-            Depilación láser profesional con resultados reales y seguros.
+          <p className="text-lg md:text-xl bg-white/70 rounded-xl px-6 py-3 inline-block">
+            Depilación láser & Manicuría profesional
           </p>
 
-          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/reservas">
-              <button className="btn-principal px-8 py-3 rounded-full text-lg">
-                Reservar Turno
+              <button className="btn-principal px-8 py-3 text-lg rounded-full">
+                Reservar turno
               </button>
             </Link>
-
             <Link href="#servicios">
-              <button className="btn-secundario px-8 py-3 rounded-full text-lg">
-                Ver Servicios
+              <button className="btn-secundario px-8 py-3 text-lg rounded-full">
+                Ver servicios
               </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 🌸 SECCIÓN SOBRE */}
-      <section className="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      {/* 🌸 QUIÉNES SOMOS */}
+      <section className="py-20 px-6 sm:px-8 lg:px-0 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="animate-fadeIn">
-          <h2 className="text-3xl font-bold text-rosaFuerte mb-4">
-            Tecnología de Última Generación
+          <h2 className="text-3xl font-bold text-rosa-oscuro mb-4">
+            Un proyecto hecho con pasión
           </h2>
-
-          <p className="text-gray-700 mb-4 leading-relaxed">
-            Lográ una piel suave desde las primeras sesiones gracias a nuestra
-            tecnología láser segura, moderna y apta para todo tipo de piel.
+          <p className="mb-4 leading-relaxed">
+            Láser Divino nace del sueño compartido de dos amigas que decidieron
+            transformar su pasión por el cuidado personal en un espacio pensado
+            para acompañar, contener y embellecer a cada persona que nos elige.
           </p>
-
-          <p className="text-gray-700 leading-relaxed">
-            Atención personalizada, confort en cada sesión y resultados reales.
+          <p className="mb-4 leading-relaxed">
+            Creemos en una atención cercana, honesta y profesional, donde cada
+            detalle importa. Por eso trabajamos con dedicación, capacitación
+            constante y productos de calidad, priorizando siempre tu bienestar
+            y confianza.
           </p>
-
-          <Link href="/reservas">
-            <button className="btn-principal mt-6">Agendar Turno</button>
-          </Link>
+          <p className="leading-relaxed">
+            Nuestro objetivo es que cada visita sea una experiencia positiva,
+            donde te sientas cómoda, cuidada y segura, y donde los resultados
+            acompañen lo que prometemos.
+          </p>
         </div>
-
         <div className="flex justify-center">
           <Image
-            src="/images/laser-woman.jpg"
-            width={600}
-            height={400}
-            alt="Depilación láser"
-            className="rounded-xl shadow-xl"
+            src="/images/nosotras.jpg" // 👉 foto del equipo
+            alt="Equipo Laser Divino"
+            width={520}
+            height={380}
+            className="rounded-2xl shadow-xl"
           />
         </div>
       </section>
 
       {/* 🌸 SERVICIOS */}
-      <section id="servicios" className="bg-rosaPastel/40 py-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-rosaFuerte mb-10">
+      <section id="servicios" className="bg-rosa-pastel/40 py-20 px-6 sm:px-8">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-rosa-oscuro mb-12">
             Nuestros Servicios
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {/* Card 1 */}
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* DEPILACIÓN */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
               <Image
-                src="/images/service-legs.jpg"
-                width={300}
-                height={200}
-                alt="Piernas Completas"
-                className="rounded-xl mb-4"
+                src="/images/depilacion.jpg" // 👉 imagen depilación
+                alt="Depilación láser"
+                width={500}
+                height={300}
+                className="rounded-xl mb-6"
               />
-
-              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-                Piernas Completas
+              <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
+                Depilación Láser
               </h3>
-              <p className="text-gray-600">
-                Eliminación duradera y segura para una suavidad increíble.
+              <p className="mb-4 leading-relaxed">
+                Utilizamos tecnología de última generación que actúa de forma
+                segura y progresiva, reduciendo el vello desde las primeras
+                sesiones. Nuestros tratamientos son personalizados según tu tipo
+                de piel y vello, garantizando comodidad, eficacia y resultados
+                visibles.
               </p>
+              <Link href="/reservas">
+                <button className="btn-principal rounded-full px-6">
+                  Ver promos
+                </button>
+              </Link>
             </div>
 
-            {/* Card 2 */}
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            {/* MANICURÍA */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
               <Image
-                src="/images/service-face.jpg"
-                width={300}
-                height={200}
-                alt="Rostro"
-                className="rounded-xl mb-4"
+                src="/images/manicuria.png" 
+                alt="Manicuría"
+                width={500}
+                height={300}
+                className="rounded-xl mb-6"
               />
-
-              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-                Rostro
+              <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
+                Manicuría
               </h3>
-              <p className="text-gray-600">
-                Ideal para pieles sensibles. Suave, seguro y eficaz.
+              <p className="mb-4 leading-relaxed">
+                Ofrecemos servicios de manicuría pensados para realzar la belleza
+                natural de tus manos. Trabajamos con productos de calidad,
+                técnicas cuidadosas y un enfoque en la higiene y el detalle,
+                para que disfrutes un resultado prolijo, elegante y duradero.
               </p>
+              <Link href="/reservas">
+                <button className="btn-principal rounded-full px-6">
+                  Ver promos
+                </button>
+              </Link>
             </div>
-
-            {/* Card 3 */}
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition transform hover:-translate-y-1">
-              <Image
-                src="/images/service-arms.jpg"
-                width={300}
-                height={200}
-                alt="Brazos"
-                className="rounded-xl mb-4"
-              />
-
-              <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-                Brazos
-              </h3>
-              <p className="text-gray-600">
-                Decile adiós al rasurado frecuente. Resultados duraderos.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-12">
-            <Link href="/reservas">
-              <button className="btn-principal px-8 py-3 rounded-full text-lg">
-                Ver Precios y Reservar
-              </button>
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* 🌸 POR QUÉ ELEGIRNOS */}
-      <section className="py-20 max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-rosaFuerte mb-12">
-          ¿Por qué elegir Láser Divino?
+      {/* 🌸 BENEFICIOS */}
+      <section className="py-20 container">
+        <h2 className="text-3xl font-bold text-center text-rosa-oscuro mb-12">
+          ¿Por qué elegirnos?
         </h2>
 
         <div className="grid md:grid-cols-3 gap-10 text-center">
-          <div className="p-8 bg-white rounded-xl shadow">
-            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-              Atención Personalizada
+          <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+            <Image
+              src="/images/atencion-personalizada.png"
+              alt="Atención personalizada"
+              width={300}
+              height={200}
+              className="rounded-xl mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold text-rosa-oscuro mb-2">
+              Atención personalizada
             </h3>
-            <p className="text-gray-600">
-              Cada piel recibe su tratamiento ideal.
+            <p className="text-gris-texto leading-relaxed">
+              Escuchamos tus necesidades y adaptamos cada tratamiento a tu tipo
+              de piel, objetivos y tiempos, para brindarte una experiencia única
+              y a medida.
             </p>
           </div>
 
-          <div className="p-8 bg-white rounded-xl shadow">
-            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-              Tecnología Premium
+          <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+            <Image
+              src="/images/ambiente-calido.png" 
+              alt="Ambiente cálido y profesional"
+              width={300}
+              height={200}
+              className="rounded-xl mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold text-rosa-oscuro mb-2">
+              Ambiente cálido y profesional
             </h3>
-            <p className="text-gray-600">
-              Equipamiento moderno, seguro y eficaz.
+            <p className="text-gris-texto leading-relaxed">
+              Creamos un espacio pensado para que te relajes y disfrutes, con
+              protocolos de higiene, confort y una atención cercana en cada
+              sesión.
             </p>
           </div>
 
-          <div className="p-8 bg-white rounded-xl shadow">
-            <h3 className="text-xl font-semibold text-rosaFuerte mb-2">
-              Resultados Reales
+          <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+            <Image
+              src="/images/resultados-visibles.png" // 👉 imagen resultados
+              alt="Resultados visibles"
+              width={300}
+              height={200}
+              className="rounded-xl mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold text-rosa-oscuro mb-2">
+              Resultados visibles
             </h3>
-            <p className="text-gray-600">
-              La suavidad que buscás, por más tiempo.
+            <p className="text-gris-texto leading-relaxed">
+              Trabajamos con técnicas efectivas y seguras que permiten notar
+              cambios reales desde las primeras sesiones, cuidando siempre tu
+              piel.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 🌸 BOTÓN WHATSAPP COLOR ROSA FUERTE */}
+      {/* 🌸 CTA FINAL */}
+      <section className="py-20 bg-rosa-fondo text-center">
+        <h2 className="text-3xl font-bold text-rosa-oscuro mb-6">
+          Regalate un momento para vos
+        </h2>
+        <Link href="/reservas">
+          <button className="btn-principal px-10 py-4 rounded-full text-lg">
+            Reservar ahora
+          </button>
+        </Link>
+      </section>
+
+      {/* 🌸 WHATSAPP */}
       <a
-        href="https://wa.me/+5491136723999"
+        href="https://wa.me/5491136723999"
         target="_blank"
         aria-label="WhatsApp"
         className="fixed bottom-6 right-6 bg-[#f878a2] p-4 rounded-full shadow-xl
-                  hover:scale-110 transition-all duration-300
-                  flex items-center justify-center animate-pulse-levemente"
+                   hover:scale-110 transition-all duration-300
+                   flex items-center justify-center animate-pulse-levemente"
       >
         <Image
           src="/icons/whatsapp.svg"
           width={34}
           height={34}
           alt="WhatsApp"
-          className="invert brightness-0 saturate-0"
+          className="invert brightness-0"
         />
       </a>
     </div>
