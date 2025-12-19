@@ -29,8 +29,8 @@ export async function POST(req: Request) {
 
     if (paymentData.status === 'approved') {
       await updateTurno(turnoId, {
-        pago: 'aprobado',
-        estado: 'confirmado',
+        pago: paymentData.metadata?.tipoPago === 'total' ? 'total' : 'sena',
+        estado: 'reservado',
       });
     }
 

@@ -42,6 +42,7 @@ export async function POST(req: Request) {
 
         metadata: {
           turnoId,
+          tipoPago: body.tipoPago, // "seña" | "total"
         },
       },
     });
