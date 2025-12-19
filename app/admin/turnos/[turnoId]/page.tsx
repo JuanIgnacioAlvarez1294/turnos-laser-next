@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Turno } from "@/types";
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { Turno } from '@/types';
 import {
   getTurnoById,
   updateTurno,
   getServicios,
-} from "@/services/turnos.service";
+} from '@/services/turnos.service';
 
 export default function EditTurnoPage() {
   const params = useParams();
@@ -43,20 +43,20 @@ export default function EditTurnoPage() {
 
   const guardarCambios = async () => {
     await updateTurno(decodedId, turno!);
-    alert("Turno actualizado correctamente");
-    router.push("/admin");
+    alert('Turno actualizado correctamente');
+    router.push('/admin');
   };
 
   const marcarCompletado = async () => {
-    await updateTurno(decodedId, { estado: "completado" });
-    alert("Turno marcado como COMPLETADO");
-    router.push("/admin");
+    await updateTurno(decodedId, { estado: 'completado' });
+    alert('Turno marcado como COMPLETADO');
+    router.push('/admin');
   };
 
   const cancelarTurno = async () => {
-    await updateTurno(decodedId, { estado: "cancelado" });
-    alert("Turno CANCELADO");
-    router.push("/admin");
+    await updateTurno(decodedId, { estado: 'cancelado' });
+    alert('Turno CANCELADO');
+    router.push('/admin');
   };
 
   if (loading) return <div className="p-4">Cargando turno...</div>;
@@ -161,8 +161,6 @@ export default function EditTurnoPage() {
         <option value="cancelado">Cancelado</option>
       </select>
 
-      {/* Pago */}
-      <label className="block mb-2">Estado de Pago</label>
       <select
         name="pago"
         value={turno.pago}
@@ -170,7 +168,8 @@ export default function EditTurnoPage() {
         className="border p-2 w-full rounded mb-6"
       >
         <option value="pendiente">Pendiente</option>
-        <option value="aprobado">Aprobado</option>
+        <option value="sena">Pagó Seña</option>
+        <option value="total">Pagó Total</option>
       </select>
 
       {/* Botones */}
@@ -198,7 +197,7 @@ export default function EditTurnoPage() {
       </div>
 
       <button
-        onClick={() => router.push("/admin")}
+        onClick={() => router.push('/admin')}
         className="mt-6 w-full text-center py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
       >
         Volver al Dashboard
