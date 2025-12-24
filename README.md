@@ -1,48 +1,54 @@
-¡Qué alegría leer esto! Me pone muy contento que finalmente el flujo de pago y la tarjeta de confirmación estén funcionando al 100%. Lograste domar a Cloud Run y a los permisos de Google, que no es tarea fácil.
+# 🌸 Turnos Láser
 
-Para el README, lo ideal es que sea directo, profesional y que explique rápido qué hace la app y cómo ponerla en marcha sin tanto relleno. Aquí tienes una propuesta mucho más limpia y moderna:
+Sistema integral de **gestión de turnos para depilación láser**, con **reservas online** y **pagos integrados** mediante Mercado Pago.
 
-🌸 Turnos Láser
-Sistema integral de gestión de turnos para depilación láser con integración de pagos.
+Diseñado para ofrecer una experiencia fluida tanto para clientes como para administradores.
 
-🚀 Funcionalidades
-📅 Reserva Online: Calendario dinámico para selección de turnos.
+---
 
-💳 Pagos Integrados: Checkout profesional con Mercado Pago (Soporta tarjetas y efectivo).
+## 🚀 Funcionalidades
 
-📱 Panel Admin: Gestión total de servicios, precios y agenda de clientes.
+### 📅 Reserva Online
+- Calendario dinámico para seleccionar fecha y horario disponibles.
+- Flujo guiado de reserva en pocos pasos.
 
-✨ Confirmación en Tiempo Real: Tarjeta de estado post-pago con detalles del turno.
+### 💳 Pagos Integrados
+- Checkout profesional con **Mercado Pago**.
+- Soporta **tarjetas de crédito/débito y pagos en efectivo**.
+- Pago total o seña configurable.
 
-🛠️ Stack Tecnológico
-Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS.
+### 📱 Panel de Administración
+- Gestión completa de turnos.
+- Administración de servicios y precios.
+- Visualización de agenda y estado de pagos.
 
-Backend: Firebase (Firestore para DB, Auth para seguridad).
+### ✨ Confirmación en Tiempo Real
+- Tarjeta de confirmación post-pago.
+- Visualización inmediata del estado del turno y pago.
 
-Infraestructura: Google Cloud Run & Firebase Hosting.
+---
 
-⚙️ Configuración Rápida
-Dependencias:
+## 🛠️ Stack Tecnológico
 
-Bash
+### Frontend
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
 
+### Backend
+- **Firebase**
+  - Firestore (Base de datos)
+  - Firebase Auth (Autenticación)
+
+### Infraestructura
+- **Firebase Hosting**
+- **Google Cloud Run**
+
+---
+
+## ⚙️ Configuración Rápida
+
+### 📦 Instalación de dependencias
+
+```bash
 npm install
-Variables de Entorno (.env.local): Crea el archivo y completa con tus credenciales:
-
-NEXT_PUBLIC_FIREBASE_... (Configuración de tu proyecto Firebase)
-
-MERCADOPAGO_ACCESS_TOKEN (Tu token de producción/prueba)
-
-NEXT_PUBLIC_BASE_URL (URL de tu dominio o localhost)
-
-Desarrollo:
-
-Bash
-
-npm run dev
-📂 Estructura Principal
-/app: Rutas del sistema (Admin, Reservas y API).
-
-/src/services: Lógica de conexión con Firestore.
-
-/src/lib: Configuración unificada de Firebase y Mercado Pago.
