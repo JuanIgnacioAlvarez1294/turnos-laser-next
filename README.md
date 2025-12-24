@@ -1,144 +1,48 @@
-# Turnos Láser
+¡Qué alegría leer esto! Me pone muy contento que finalmente el flujo de pago y la tarjeta de confirmación estén funcionando al 100%. Lograste domar a Cloud Run y a los permisos de Google, que no es tarea fácil.
 
-## Descripción
-Turnos Láser es una aplicación web diseñada para gestionar turnos de depilación láser. Permite a los usuarios reservar, modificar y cancelar turnos, así como realizar pagos a través de Mercado Pago. Además, ofrece un panel de administración para gestionar turnos y servicios.
+Para el README, lo ideal es que sea directo, profesional y que explique rápido qué hace la app y cómo ponerla en marcha sin tanto relleno. Aquí tienes una propuesta mucho más limpia y moderna:
 
-## Tecnologías Utilizadas
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
-- **Backend**: Firebase (Firestore, Auth, Hosting)
-- **Pagos**: Mercado Pago Checkout PRO
+🌸 Turnos Láser
+Sistema integral de gestión de turnos para depilación láser con integración de pagos.
 
-## Estructura del Proyecto
-```
-turnos-laser-next
-├── app
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── head.tsx
-│   ├── favicon.ico
-│   ├── admin
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── dashboard
-│   │   └── page.tsx
-│   ├── user
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── reservas
-│   │   ├── page.tsx
-│   │   └── [turnoId]
-│   │       └── page.tsx
-│   └── api
-│       ├── auth
-│       │   └── route.ts
-│       ├── mercado-pago
-│       │   ├── create_payment
-│       │   │   └── route.ts
-│       │   └── webhook
-│       │       └── route.ts
-│       └── turnos
-│           └── route.ts
-├── src
-│   ├── components
-│   │   ├── ui
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   ├── Button.tsx
-│   │   │   └── Modal.tsx
-│   │   ├── turnos
-│   │   │   ├── TurnoForm.tsx
-│   │   │   ├── Calendar.tsx
-│   │   │   └── TurnoCard.tsx
-│   │   └── admin
-│   │       ├── DashboardCards.tsx
-│   │       └── TurnosTable.tsx
-│   ├── hooks
-│   │   ├── useAuth.ts
-│   │   ├── useTurnos.ts
-│   │   └── useViewport.ts
-│   ├── contexts
-│   │   └── AuthContext.tsx
-│   ├── lib
-│   │   ├── firebase
-│   │   │   ├── client.ts
-│   │   │   └── admin.ts
-│   │   └── mercadoPago.ts
-│   ├── services
-│   │   ├── turnos.service.ts
-│   │   ├── servicios.service.ts
-│   │   └── usuarios.service.ts
-│   ├── utils
-│   │   ├── seo.ts
-│   │   ├── dates.ts
-│   │   └── notifications.ts
-│   ├── types
-│   │   └── index.ts
-│   └── styles
-│       └── globals.css
-├── public
-│   ├── robots.txt
-│   └── sitemap.xml
-├── functions
-│   ├── src
-│   │   ├── index.ts
-│   │   ├── sendPushNotifications.ts
-│   │   └── mercadoPagoWebhook.ts
-│   ├── package.json
-│   └── tsconfig.json
-├── scripts
-│   ├── generate-sitemap.mjs
-│   └── seed-data.mjs
-├── .env.example
-├── .firebaserc
-├── firebase.json
-├── next.config.js
-├── tsconfig.json
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-├── next-sitemap.config.js
-├── .eslintrc.cjs
-├── .prettierrc
-├── .gitignore
-└── README.md
-```
+🚀 Funcionalidades
+📅 Reserva Online: Calendario dinámico para selección de turnos.
 
-## Instalación
-1. Clona el repositorio:
-   ```
-   git clone <URL_DEL_REPOSITORIO>
-   cd turnos-laser-next
-   ```
+💳 Pagos Integrados: Checkout profesional con Mercado Pago (Soporta tarjetas y efectivo).
 
-2. Instala las dependencias:
-   ```
-   npm install
-   ```
+📱 Panel Admin: Gestión total de servicios, precios y agenda de clientes.
 
-3. Configura las variables de entorno en un archivo `.env` basado en `.env.example`.
+✨ Confirmación en Tiempo Real: Tarjeta de estado post-pago con detalles del turno.
 
-4. Inicia el servidor de desarrollo:
-   ```
-   npm run dev
-   ```
+🛠️ Stack Tecnológico
+Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS.
 
-## Funcionalidades
-### Usuario
-- Ver servicios disponibles.
-- Reservar, modificar y cancelar turnos.
-- Recibir notificaciones sobre el estado de los turnos.
-- Panel de usuario con historial y datos personales.
+Backend: Firebase (Firestore para DB, Auth para seguridad).
 
-### Administrador
-- Dashboard para gestionar turnos y servicios.
-- Crear, editar y eliminar servicios.
-- Enviar notificaciones push.
+Infraestructura: Google Cloud Run & Firebase Hosting.
 
-## SEO
-- Optimización de metadatos y generación automática de sitemap.
+⚙️ Configuración Rápida
+Dependencias:
 
-## Contribuciones
-Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request para discutir cambios.
+Bash
 
-## Licencia
-Este proyecto está bajo la Licencia MIT.
+npm install
+Variables de Entorno (.env.local): Crea el archivo y completa con tus credenciales:
+
+NEXT_PUBLIC_FIREBASE_... (Configuración de tu proyecto Firebase)
+
+MERCADOPAGO_ACCESS_TOKEN (Tu token de producción/prueba)
+
+NEXT_PUBLIC_BASE_URL (URL de tu dominio o localhost)
+
+Desarrollo:
+
+Bash
+
+npm run dev
+📂 Estructura Principal
+/app: Rutas del sistema (Admin, Reservas y API).
+
+/src/services: Lógica de conexión con Firestore.
+
+/src/lib: Configuración unificada de Firebase y Mercado Pago.
