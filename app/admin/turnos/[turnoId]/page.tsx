@@ -7,200 +7,161 @@ import {
   getTurnoById,
   updateTurno,
   getServicios,
+  ServicioFromDB,
 } from '@/services/turnos.service';
+import { toast } from 'react-toastify';
 
 export default function EditTurnoPage() {
   const params = useParams();
   const router = useRouter();
 
-  // ID crudo que viene de la URL
-  const rawId = params.turnoId as string;
-
-  // ID decodificado (email real)
-  const decodedId = decodeURIComponent(rawId);
+  // El ID ahora es el generado por Firebase
+  const turnoId = params.turnoId as string;
 
   const [turno, setTurno] = useState<Turno | null>(null);
-  const [servicios, setServicios] = useState<any[]>([]);
+  const [servicios, setServicios] = useState<ServicioFromDB[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadTurno = async () => {
-      const data = await getTurnoById(decodedId);
-      const serv = await getServicios();
+    const loadData = async () => {
+      try {
+        const data = await getTurnoById(turnoId);
+        const serv = await getServicios();
 
-      setTurno(data);
-      setServicios(serv);
-      setLoading(false);
+        if (data) {
+          setTurno(data);
+        }
+        setServicios(serv);
+      } catch (error) {
+        console.error("Error cargando datos:", error);
+        toast.error("No se pudo cargar la información");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    loadTurno();
-  }, [decodedId]);
+    if (turnoId) loadData();
+  }, [turnoId]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (!turno) return;
     setTurno({ ...turno, [e.target.name]: e.target.value });
   };
 
   const guardarCambios = async () => {
-    await updateTurno(decodedId, turno!);
-    alert('Turno actualizado correctamente');
-    router.push('/admin');
+    try {
+      await updateTurno(turnoId, turno!);
+      toast.success('Turno actualizado correctamente');
+      router.push('/admin');
+    } catch {
+      toast.error('Error al guardar');
+    }
   };
 
   const marcarCompletado = async () => {
-    await updateTurno(decodedId, { estado: 'completado' });
-    alert('Turno marcado como COMPLETADO');
-    router.push('/admin');
+    try {
+      await updateTurno(turnoId, { estado: 'completado' });
+      toast.success('Turno marcado como COMPLETADO');
+      router.push('/admin');
+    } catch {
+      toast.error('Error al actualizar estado');
+    }
   };
 
   const cancelarTurno = async () => {
-    await updateTurno(decodedId, { estado: 'cancelado' });
-    alert('Turno CANCELADO');
-    router.push('/admin');
+    if (!confirm('¿Estás seguro de cancelar este turno?')) return;
+    try {
+      await updateTurno(turnoId, { estado: 'cancelado' });
+      toast.error('Turno CANCELADO');
+      router.push('/admin');
+    } catch {
+      toast.error('Error al cancelar');
+    }
   };
 
-  if (loading) return <div className="p-4">Cargando turno...</div>;
-  if (!turno) return <div className="p-4">Turno no encontrado</div>;
+  if (loading) return <div className="p-8 text-center">Cargando detalles del turno...</div>;
+  if (!turno) return <div className="p-8 text-center">Turno no encontrado (ID: {turnoId})</div>;
 
   return (
-    <div className="p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-bold mb-4">Editar Turno</h1>
+    <div className="p-6 max-w-2xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">Gestionar Turno</h1>
 
-      {/* Nombre */}
-      <label className="block mb-2">Nombre</label>
-      <input
-        name="nombre"
-        value={turno.nombre}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+          <input name="nombre" value={turno.nombre} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+          <input name="apellido" value={turno.apellido} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+      </div>
 
-      {/* Apellido */}
-      <label className="block mb-2">Apellido</label>
-      <input
-        name="apellido"
-        value={turno.apellido}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+          <input name="telefono" value={turno.telefono} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email Contacto</label>
+          <input name="emailContacto" value={turno.emailContacto} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+      </div>
 
-      {/* Telefono */}
-      <label className="block mb-2">Teléfono</label>
-      <input
-        name="telefono"
-        value={turno.telefono}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+          <input type="date" name="fecha" value={turno.fecha} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Hora</label>
+          <input type="time" name="hora" value={turno.hora} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none" />
+        </div>
+      </div>
 
-      {/* Email */}
-      <label className="block mb-2">Email</label>
-      <input
-        name="email"
-        value={turno.email}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
-
-      {/* Email Contacto */}
-      <label className="block mb-2">Email de Contacto</label>
-      <input
-        name="emailContacto"
-        value={turno.emailContacto}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
-
-      {/* Fecha */}
-      <label className="block mb-2">Fecha</label>
-      <input
-        type="date"
-        name="fecha"
-        value={turno.fecha}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
-
-      {/* Hora */}
-      <label className="block mb-2">Hora</label>
-      <input
-        type="time"
-        name="hora"
-        value={turno.hora}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      />
-
-      {/* Servicio */}
-      <label className="block mb-2">Servicio</label>
-      <select
-        name="servicioId"
-        value={turno.servicioId}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      >
-        <option value="">Seleccionar servicio</option>
+      <label className="block text-sm font-medium text-gray-700 mb-1">Servicio</label>
+      <select name="servicioId" value={turno.servicioId} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 bg-white outline-none">
         {servicios.map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.nombre}
-          </option>
+          <option key={s.id} value={s.id}>{s.nombre}</option>
         ))}
       </select>
 
-      {/* Estado del turno */}
-      <label className="block mb-2">Estado del Turno</label>
-      <select
-        name="estado"
-        value={turno.estado}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-4"
-      >
-        <option value="pendiente">Pendiente</option>
-        <option value="reservado">Reservado</option>
-        <option value="completado">Completado</option>
-        <option value="cancelado">Cancelado</option>
-      </select>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Estado del Turno</label>
+          <select name="estado" value={turno.estado} onChange={handleChange} className="border p-2 w-full rounded-lg mb-4 bg-white outline-none">
+            <option value="pendiente">Pendiente (Sin pagar)</option>
+            <option value="confirmado">Confirmado (Pagado)</option>
+            <option value="completado">Completado ✅</option>
+            <option value="cancelado">Cancelado ❌</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Estado del Pago</label>
+          <select name="pago" value={turno.pago} onChange={handleChange} className="border p-2 w-full rounded-lg mb-6 bg-white outline-none">
+            <option value="pendiente">Pendiente</option>
+            <option value="sena">Seña Pagada</option>
+            <option value="total">Total Pagado</option>
+          </select>
+        </div>
+      </div>
 
-      <select
-        name="pago"
-        value={turno.pago}
-        onChange={handleChange}
-        className="border p-2 w-full rounded mb-6"
-      >
-        <option value="pendiente">Pendiente</option>
-        <option value="sena">Pagó Seña</option>
-        <option value="total">Pagó Total</option>
-      </select>
-
-      {/* Botones */}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={guardarCambios}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
+      <div className="flex flex-col sm:flex-row justify-between gap-3 mt-4">
+        <button onClick={guardarCambios} className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition shadow-md font-medium">
           Guardar Cambios
         </button>
 
-        <button
-          onClick={marcarCompletado}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-        >
+        <button onClick={marcarCompletado} className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition shadow-md font-medium">
           Marcar Completado
         </button>
 
-        <button
-          onClick={cancelarTurno}
-          className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-        >
+        <button onClick={cancelarTurno} className="bg-white text-red-600 border border-red-200 px-6 py-2 rounded-xl hover:bg-red-50 transition font-medium">
           Cancelar Turno
         </button>
       </div>
 
-      <button
-        onClick={() => router.push('/admin')}
-        className="mt-6 w-full text-center py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-      >
-        Volver al Dashboard
+      <button onClick={() => router.push('/admin')} className="mt-8 w-full text-center py-2 text-gray-500 hover:text-gray-800 transition text-sm">
+        ← Volver al Dashboard
       </button>
     </div>
   );

@@ -79,19 +79,19 @@ const TurnosTable: React.FC = () => {
               <td className="py-2 px-4 border-b">{turno.hora}</td>
 
               <td className="py-2 px-4 border-b font-semibold">
-                {turno.estado === 'reservado' && turno.pago === 'pendiente' && (
+                {turno.estado === 'confirmado' && turno.pago === 'pendiente' && (
                   <span className="text-yellow-600">Reservado (sin pago)</span>
                 )}
 
-                {turno.estado === 'reservado' && turno.pago === 'sena' && (
+                {turno.estado === 'confirmado' && turno.pago === 'sena' && (
                   <span className="text-orange-600">Reservado (Seña)</span>
                 )}
 
-                {turno.estado === 'reservado' && turno.pago === 'total' && (
+                {turno.estado === 'confirmado' && turno.pago === 'total' && (
                   <span className="text-green-600">Reservado (Pago total)</span>
                 )}
 
-                {turno.estado !== 'reservado' && (
+                {turno.estado !== 'confirmado' && (
                   <span
                     className={
                       turno.estado === 'pendiente'
