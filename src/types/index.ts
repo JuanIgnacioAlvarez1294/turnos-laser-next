@@ -4,52 +4,25 @@
 
 export type EstadoTurno =
   | "pendiente"
-  | "reservado"
+  | "confirmado"
   | "cancelado"
-  | "completado"
-  | 'confirmado';
+  | "completado";
 
-export type EstadoPago = 'pendiente' | 'sena' | 'total';
+export type EstadoPago = "pendiente" | "sena" | "total";
 
 /* ==============================
-   TURNO (MODELO COMPLETO – ADMIN)
+   TURNO (MODELO COMPLETO – DB)
 ============================== */
 
 export interface Turno {
   turnoId: string;
 
-  // Relación / sistema
-  userId: string;              // "public" para reservas web
-  sucursal: string;            // "principal"
-  createdAt?: Date;
+  userId: string;
+  sucursal: string;
 
-  // Cliente
   nombre: string;
   apellido: string;
   telefono: string;
-  email: string;
-  emailContacto: string;
-
-  // Reserva
-  servicioId: string;
-  fecha: string;               // YYYY-MM-DD
-  hora: string;                // HH:mm
-  tiempoEstimado: string;      // "30"
-
-  // Estados
-  estado: 'pendiente' | 'reservado' | 'completado' | 'cancelado';
-  pago: EstadoPago;
-}
-
-/* ==============================
-   INPUT PARA CREAR TURNO (WEB)
-============================== */
-
-export interface CreateTurnoInput {
-  nombre: string;
-  apellido: string;
-  telefono: string;
-  email: string;
   emailContacto: string;
 
   servicioId: string;
@@ -58,6 +31,28 @@ export interface CreateTurnoInput {
 
   estado: EstadoTurno;
   pago: EstadoPago;
+
+  montoTotal?: number;
+  montoPagado?: number;
+  metodoPago?: string;
+
+  tiempoEstimado?: string;
+  createdAt: Date;
+}
+
+/* ==============================
+   INPUT PARA CREAR TURNO (FORM)
+============================== */
+
+export interface CreateTurnoInput {
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  emailContacto: string;
+
+  servicioId: string;
+  fecha: string;
+  hora: string;
 }
 
 /* ==============================
