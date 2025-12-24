@@ -23,6 +23,7 @@ const Footer: React.FC = () => {
           <a
             href="https://www.instagram.com/laserdivino/"
             target="_blank"
+            rel="noopener noreferrer"
             className="
               flex items-center gap-3 
               bg-white/70 px-4 py-2 rounded-full 

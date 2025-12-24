@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase/auth';
+import { auth } from '@/lib/firebaseConfig';
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();

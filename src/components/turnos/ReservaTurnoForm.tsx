@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createTurno, getTurnosByFecha } from '@/services/turnos.service';
-import { notifySuccess, notifyError } from '@/utils/notifications';
-import { Turno } from '@/types';
+import { getTurnosByFecha } from '@/services/turnos.service';
+import { notifyError } from '@/utils/notifications';
+
+// ✅ Movido fuera del componente para evitar errores de dependencias en useEffect
+const HORARIOS_BASE = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00'];
 
 type Servicio = {
   id: string;
@@ -32,14 +34,9 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
   const [horariosDisponibles, setHorariosDisponibles] = useState<string[]>([]);
   const [loadingHoras, setLoadingHoras] = useState(false);
 
-  const HORARIOS_BASE = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00'];
-
-  const servicioSeleccionado = servicios.find((s) => s.id === servicioId);
-  const precio = servicioSeleccionado?.precio ?? 0;
-  const senia = Math.round(precio * 0.2);
-
+  // Cargar horarios ocupados desde Firebase
   useEffect(() => {
-    const fetch = async () => {
+    const fetchHorarios = async () => {
       if (!fecha) {
         setHorariosDisponibles([]);
         return;
@@ -48,6 +45,7 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
       try {
         const turnos = await getTurnosByFecha(fecha);
         const ocupados = turnos.map((t) => t.hora);
+        // Ahora HORARIOS_BASE es accesible sin ser dependencia
         const libres = HORARIOS_BASE.filter((h) => !ocupados.includes(h));
         setHorariosDisponibles(libres);
       } catch (err) {
@@ -57,48 +55,27 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
         setLoadingHoras(false);
       }
     };
-    fetch();
-  }, [fecha]);
+    fetchHorarios();
+  }, [fecha]); // ✅ ESLint ya no se queja porque HORARIOS_BASE es externa
 
-  const validarYCrear = async () => {
-    if (!nombre.trim() || !apellido.trim())
-      return notifyError('Nombre y apellido son obligatorios');
-
-    if (!emailContacto || !emailContacto.includes('@'))
-      return notifyError('Email inválido');
-
+  const irAConfirmacion = () => {
+    if (!nombre.trim() || !apellido.trim()) return notifyError('Nombre y apellido son obligatorios');
+    if (!emailContacto || !emailContacto.includes('@')) return notifyError('Email inválido');
     if (!servicioId) return notifyError('Selecciona un servicio');
     if (!fecha || !hora) return notifyError('Selecciona fecha y hora');
 
-    const nuevoTurno: Omit<Turno, 'turnoId'> = {
-      userId: user?.uid ?? '',
-      nombre,
-      apellido,
-      telefono,
-      email: emailContacto,
-      emailContacto,
-      servicioId,
+    const params = new URLSearchParams({
+      servicio: servicioId,
+      nombre: nombre.trim(),
+      apellido: apellido.trim(),
+      telefono: telefono.trim(),
+      email: emailContacto.trim(),
       fecha,
-      hora,
-      estado: 'pendiente',
-      pago: 'pendiente',
-      sucursal: 'principal',
-      tiempoEstimado: '30m',
-      createdAt: new Date(),
-    };
+      hora
+    });
 
-    try {
-      const id = await createTurno(nuevoTurno);
-      notifySuccess('Turno creado correctamente');
-      router.push(`/reservas/${id}`);
-    } catch (err) {
-      console.error(err);
-      notifyError('Error al crear el turno');
-    }
+    router.push(`/reservas/confirm?${params.toString()}`);
   };
-
-  const mpLinkSenia = `https://mpago.la/senia?amount=${senia}`;
-  const mpLinkTotal = `https://mpago.la/total?amount=${precio}`;
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat('es-AR', {
@@ -108,12 +85,10 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
 
   return (
     <div className="p-6 bg-white rounded-2xl shadow-lg border border-pink-200 space-y-6 max-w-2xl mx-auto">
-
       <h3 className="text-2xl font-semibold text-pink-600 text-center">
         🌸 Reservar Turno
       </h3>
 
-      {/* Datos personales */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           className="border border-pink-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -132,7 +107,7 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           className="border border-pink-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
-          placeholder="Teléfono"
+          placeholder="Teléfono (Ej: 1122334455)"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
         />
@@ -145,7 +120,6 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
         />
       </div>
 
-      {/* Servicio y fecha */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <select
           className="border border-pink-300 p-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -169,14 +143,12 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
         />
       </div>
 
-      {/* Horarios */}
       <div>
         <label className="block mb-2 font-medium text-pink-600">Horarios disponibles</label>
-
         {loadingHoras ? (
           <p className="text-pink-500">Cargando horarios...</p>
         ) : horariosDisponibles.length === 0 ? (
-          <p className="text-red-500">No hay horarios disponibles</p>
+          <p className="text-gray-400 text-sm italic">Selecciona una fecha para ver horarios</p>
         ) : (
           <div className="flex gap-2 flex-wrap">
             {horariosDisponibles.map((h) => (
@@ -187,7 +159,7 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
                 className={`px-4 py-2 rounded-xl border transition ${
                   hora === h
                     ? 'bg-pink-500 text-white border-pink-600 shadow'
-                    : 'border-pink-300 hover:bg-pink-100'
+                    : 'border-pink-300 hover:bg-pink-100 text-pink-700'
                 }`}
               >
                 {h}
@@ -197,42 +169,17 @@ export default function ReservaTurnoForm({ servicios, user = null }: Props) {
         )}
       </div>
 
-      {/* Pago */}
-      <div className="p-4 bg-pink-50 border border-pink-200 rounded-xl shadow-sm">
-        <p className="font-medium text-pink-700">
-          💗 Para confirmar tu reserva debes abonar una seña del 20%.
+      <div className="pt-4">
+        <button
+          onClick={irAConfirmacion}
+          className="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-2xl shadow-lg transition-all transform hover:scale-[1.01]"
+        >
+          Siguiente: Confirmar y Pagar ➔
+        </button>
+        <p className="text-center text-xs text-gray-500 mt-3">
+          Podrás elegir pagar seña o total en el siguiente paso.
         </p>
-
-        <div className="mt-3 text-pink-700 space-y-1">
-          <p>Precio total: <strong>{formatCurrency(precio)}</strong></p>
-          <p>Seña (20%): <strong>{formatCurrency(senia)}</strong></p>
-        </div>
-
-        <div className="mt-4 flex flex-col sm:flex-row gap-3">
-          <a
-            href={mpLinkSenia}
-            target="_blank"
-            className="flex-1 text-center p-3 bg-white border border-pink-300 rounded-xl hover:bg-pink-100"
-          >
-            Pagar Seña (20%)
-          </a>
-          <a
-            href={mpLinkTotal}
-            target="_blank"
-            className="flex-1 text-center p-3 bg-white border border-pink-300 rounded-xl hover:bg-pink-100"
-          >
-            Pagar Total
-          </a>
-        </div>
       </div>
-
-      {/* Confirmar */}
-      <button
-        onClick={validarYCrear}
-        className="w-full py-3 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-xl shadow transition"
-      >
-        Confirmar Reserva
-      </button>
     </div>
   );
 }

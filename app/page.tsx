@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -32,7 +32,7 @@ export default function HomePage() {
               </button>
             </Link>
             <Link href="#servicios">
-              <button className="btn-secundario px-8 py-3 text-lg rounded-full">
+              <button className="btn-principal px-8 py-3 text-lg rounded-full">
                 Ver servicios
               </button>
             </Link>
@@ -54,8 +54,8 @@ export default function HomePage() {
           <p className="mb-4 leading-relaxed">
             Creemos en una atención cercana, honesta y profesional, donde cada
             detalle importa. Por eso trabajamos con dedicación, capacitación
-            constante y productos de calidad, priorizando siempre tu bienestar
-            y confianza.
+            constante y productos de calidad, priorizando siempre tu bienestar y
+            confianza.
           </p>
           <p className="leading-relaxed">
             Nuestro objetivo es que cada visita sea una experiencia positiva,
@@ -84,13 +84,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* DEPILACIÓN */}
             <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
-              <Image
-                src="/images/depilacion.jpg" // 👉 imagen depilación
-                alt="Depilación láser"
-                width={500}
-                height={300}
-                className="rounded-xl mb-6"
-              />
+              <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
+                <Image
+                  src="/images/depilacion.jpg"
+                  alt="Depilación láser"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
                 Depilación Láser
               </h3>
@@ -107,24 +108,25 @@ export default function HomePage() {
                 </button>
               </Link>
             </div>
-
             {/* MANICURÍA */}
             <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
-              <Image
-                src="/images/manicuria.png" 
-                alt="Manicuría"
-                width={500}
-                height={300}
-                className="rounded-xl mb-6"
-              />
+              <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
+                <Image
+                  src="/images/manicuria.png"
+                  alt="Manicuría"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
                 Manicuría
               </h3>
               <p className="mb-4 leading-relaxed">
-                Ofrecemos servicios de manicuría pensados para realzar la belleza
-                natural de tus manos. Trabajamos con productos de calidad,
-                técnicas cuidadosas y un enfoque en la higiene y el detalle,
-                para que disfrutes un resultado prolijo, elegante y duradero.
+                Ofrecemos servicios de manicuría pensados para realzar la
+                belleza natural de tus manos. Trabajamos con productos de
+                calidad, técnicas cuidadosas y un enfoque en la higiene y el
+                detalle, para que disfrutes un resultado prolijo, elegante y
+                duradero.
               </p>
               <Link href="/reservas">
                 <button className="btn-principal rounded-full px-6">
@@ -163,7 +165,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
             <Image
-              src="/images/ambiente-calido.png" 
+              src="/images/ambiente-calido.png"
               alt="Ambiente cálido y profesional"
               width={300}
               height={200}
@@ -215,6 +217,7 @@ export default function HomePage() {
       <a
         href="https://wa.me/5491136723999"
         target="_blank"
+        rel="noopener noreferrer"
         aria-label="WhatsApp"
         className="fixed bottom-6 right-6 bg-[#f878a2] p-4 rounded-full shadow-xl
                    hover:scale-110 transition-all duration-300
