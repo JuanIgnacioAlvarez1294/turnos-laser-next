@@ -10,6 +10,9 @@ import { ToastContainer } from 'react-toastify';
 export const metadata: Metadata = {
   title: 'Láser Divino',
   description: 'Depilación Láser - Turnos online',
+  icons: {
+    icon: '/images/logo-laserdivino.png',
+  },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
