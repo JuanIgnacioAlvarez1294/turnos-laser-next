@@ -43,6 +43,20 @@ export default async function DetalleReservaPage({
       });
     }
 
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/emails/confirmacion`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: turno.nombre,
+        apellido: turno.apellido,
+        email: turno.emailContacto,
+        fecha: turno.fecha,
+        hora: turno.hora,
+        servicio: turno.servicioId,
+        estado: turno.estado,
+      }),
+    });
+
     return (
       <div className="min-h-screen bg-pink-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl">
@@ -53,6 +67,11 @@ export default async function DetalleReservaPage({
           </div>
 
           <div className="p-6 space-y-3 text-sm text-gray-700">
+            <p>
+              <strong className="text-pink-600">Servicio:</strong>{' '}
+              {turno.servicioId}
+            </p>
+
             <p>
               <strong className="text-pink-600">Cliente:</strong> {turno.nombre}{' '}
               {turno.apellido}
@@ -69,6 +88,10 @@ export default async function DetalleReservaPage({
             <p>
               <strong className="text-pink-600">Email:</strong>{' '}
               {turno.emailContacto ?? '—'}
+            </p>
+
+            <p className="mt-3 text-center text-sm text-gray-500">
+              📧 Vas a recibir un correo con la confirmación de tu turno
             </p>
 
             <div
