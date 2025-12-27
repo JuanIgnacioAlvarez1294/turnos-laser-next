@@ -15,7 +15,6 @@ export default function EditTurnoPage() {
   const params = useParams();
   const router = useRouter();
 
-  // El ID ahora es el generado por Firebase
   const turnoId = params.turnoId as string;
 
   const [turno, setTurno] = useState<Turno | null>(null);

@@ -26,15 +26,8 @@ export default function AdminLoginPage() {
   };
 
   return (
-    /* ELIMINADO: min-h-screen y bg-rosa-fondo.
-       USAMOS: flex-grow para que ocupe el espacio disponible sin sobrar.
-    */
     <div className="flex-grow flex flex-col items-center justify-center w-full bg-white px-0 sm:px-4 py-6">
       
-      {/* TARJETA: 
-          - En móvil: w-[90%] (casi todo el ancho), sin bordes ni sombras para integrarse.
-          - En desktop: max-w-[400px], con bordes y sombra.
-      */}
       <div className="
         w-[90%] sm:max-w-[400px] 
         bg-white 
