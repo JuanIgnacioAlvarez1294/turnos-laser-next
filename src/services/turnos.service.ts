@@ -11,7 +11,8 @@ import {
   where,
   doc,
 } from "firebase/firestore";
-import { CreateTurnoInput, Turno } from "@/types";
+import { CreateTurnoInput, EstadoPago, Turno } from "@/types";
+import { Timestamp } from "firebase/firestore";
 
 /* ==============================
    SERVICIOS
@@ -63,21 +64,33 @@ export const getTurnos = async (): Promise<Turno[]> => {
 /* ---------------------------------------------
    OBTENER TURNO POR ID (ID REAL)
 ---------------------------------------------- */
+export const getTurnoById = async (
+  turnoId: string
+): Promise<Turno | null> => {
+  if (!turnoId) throw new Error("ID no proporcionado");
 
-export const getTurnoById = async (id: string) => {
-  if (!id) throw new Error("ID no proporcionado");
-  // Asegúrate de importar la db correctamente de tu config
-  const docRef = doc(db, "turnos", id); 
-  const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
+  const ref = doc(db, "turnos", turnoId);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) return null;
+
+  const data = snap.data() as Turno;
+
+  return {
+    ...data,
+    turnoId: snap.id,
+    createdAt:
+      data.createdAt instanceof Timestamp
+        ? data.createdAt.toDate()
+        : data.createdAt,
+  };
 };
-
 /* ---------------------------------------------
    CREAR TURNO (ID AUTOMÁTICO 🔥)
 ---------------------------------------------- */
 
 export const createTurno = async (
-  data: CreateTurnoInput
+  data: CreateTurnoInput & { pago: EstadoPago}
 ): Promise<string> => {
   // 🔥 Firebase genera el ID
   const ref = doc(collection(db, "turnos"));
@@ -98,7 +111,7 @@ export const createTurno = async (
     hora: data.hora,
 
     estado: "pendiente",
-    pago: "pendiente",
+    pago: data.pago,
 
     createdAt: new Date(),
   };

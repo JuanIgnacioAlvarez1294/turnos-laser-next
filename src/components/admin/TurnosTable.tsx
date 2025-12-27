@@ -47,7 +47,7 @@ const TurnosTable: React.FC = () => {
       <table className="min-w-full bg-white border border-rosa-pastel shadow-xl rounded-xl">
         <thead className="bg-rosa-pastel text-rosa-oscuro sticky top-0 z-10">
           <tr>
-            <th className="py-3 px-4 border-b">ID</th>
+            <th className="py-3 px-4 border-b">Email</th>
             <th className="py-3 px-4 border-b">Cliente</th>
             <th className="py-3 px-4 border-b">Servicio</th>
             <th className="py-3 px-4 border-b">Fecha</th>
@@ -64,7 +64,7 @@ const TurnosTable: React.FC = () => {
               className="text-center hover:bg-rosa-fondo transition"
             >
               <td className="py-2 px-4 border-b">
-                {decodeURIComponent(turno.turnoId)}
+                {turno.emailContacto}
               </td>
 
               <td className="py-2 px-4 border-b">

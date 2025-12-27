@@ -1,9 +1,0 @@
-User-agent: *
-Disallow: /api/
-Disallow: /admin/
-Disallow: /functions/
-Allow: /public/
-Allow: /reservas/
-Allow: /user/
-Allow: /dashboard/
-Allow: /turnos-laser-next/

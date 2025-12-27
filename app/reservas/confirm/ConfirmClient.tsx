@@ -69,6 +69,7 @@ export default function ConfirmClient() {
         servicioId: servicioId || '',
         fecha: fecha || '',
         hora: hora || '',
+        pago: tipoPago,
       });
 
       // 2. Determinar monto final según elección

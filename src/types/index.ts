@@ -1,6 +1,3 @@
-/* ==============================
-   ESTADOS
-============================== */
 
 export type EstadoTurno =
   | "pendiente"
@@ -9,10 +6,6 @@ export type EstadoTurno =
   | "completado";
 
 export type EstadoPago = "pendiente" | "sena" | "total";
-
-/* ==============================
-   TURNO (MODELO COMPLETO – DB)
-============================== */
 
 export interface Turno {
   turnoId: string;
@@ -40,10 +33,6 @@ export interface Turno {
   createdAt: Date;
 }
 
-/* ==============================
-   INPUT PARA CREAR TURNO (FORM)
-============================== */
-
 export interface CreateTurnoInput {
   nombre: string;
   apellido: string;
@@ -54,10 +43,6 @@ export interface CreateTurnoInput {
   fecha: string;
   hora: string;
 }
-
-/* ==============================
-   SERVICIOS
-============================== */
 
 export interface Servicio {
   id: string;

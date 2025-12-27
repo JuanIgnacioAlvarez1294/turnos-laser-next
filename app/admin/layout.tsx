@@ -1,9 +1,9 @@
+// app/admin/layout.tsx
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-rosa-fondo p-6">
-      <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-rosa-pastel">
-        {children}
-      </div>
+    /* Quitamos min-h-screen y el fondo rosa para que el Footer suba */
+    <div className="flex flex-col w-full bg-white">
+       {children}
     </div>
   );
 }

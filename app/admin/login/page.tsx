@@ -15,7 +15,6 @@ export default function AdminLoginPage() {
   const loginAdmin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Bienvenido administrador");
@@ -23,113 +22,76 @@ export default function AdminLoginPage() {
     } catch {
       toast.error("Credenciales incorrectas");
     }
-
     setLoading(false);
   };
 
   return (
-  <div className="
-    min-h-screen
-    bg-gradient-to-br from-rosa to-rosa-pastel
-    flex items-center justify-center
-    px-4
-  ">
-    <div className="
-      w-full
-      sm:max-w-md
-      bg-white/90
-      backdrop-blur-md
-      shadow-2xl
-      border border-rosa-pastel
-
-      /* MOBILE */
-      p-6
-      rounded-xl
-
-      /* DESKTOP */
-      sm:p-10
-      sm:rounded-2xl
-      animate-fadeIn
-    ">
-      <h1 className="
-        text-3xl
-        font-bold
-        text-center
-        mb-6
-        text-rosa-fuerte
+    /* ELIMINADO: min-h-screen y bg-rosa-fondo.
+       USAMOS: flex-grow para que ocupe el espacio disponible sin sobrar.
+    */
+    <div className="flex-grow flex flex-col items-center justify-center w-full bg-white px-0 sm:px-4 py-6">
+      
+      {/* TARJETA: 
+          - En móvil: w-[90%] (casi todo el ancho), sin bordes ni sombras para integrarse.
+          - En desktop: max-w-[400px], con bordes y sombra.
+      */}
+      <div className="
+        w-[90%] sm:max-w-[400px] 
+        bg-white 
+        border-none sm:border sm:border-rosa-pastel 
+        shadow-none sm:shadow-xl 
+        rounded-none sm:rounded-3xl 
+        p-4 sm:p-10
       ">
-        Panel Administrativo
-      </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-rosa-fuerte mb-8">
+          Panel Administrativo
+        </h1>
 
-      <form onSubmit={loginAdmin} className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Correo
-          </label>
-          <input
-            type="email"
-            required
-            className="
-              w-full
-              p-4
-              text-base
-              border border-rosa-pastel
-              rounded-xl
-              mt-1
-              focus:ring-2 focus:ring-rosa-fuerte
-              outline-none
-            "
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <form onSubmit={loginAdmin} className="space-y-6">
+          <div>
+            <label className="block text-xs font-bold text-gray-400 uppercase ml-1 mb-1">
+              Correo
+            </label>
+            <input
+              type="email"
+              required
+              className="w-full px-4 py-3 bg-gray-50 border border-rosa-pastel rounded-2xl focus:ring-2 focus:ring-rosa-fuerte outline-none transition-all text-base"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-gray-400 uppercase ml-1 mb-1">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              required
+              className="w-full px-4 py-3 bg-gray-50 border border-rosa-pastel rounded-2xl focus:ring-2 focus:ring-rosa-fuerte outline-none transition-all text-base"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-rosa-fuerte text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-rosa-fuerte/20 active:scale-[0.98] transition-all"
+          >
+            {loading ? "Ingresando..." : "Ingresar"}
+          </button>
+        </form>
+
+        <div className="mt-8 text-center space-y-2">
+          <p className="text-sm text-rosa-fuerte font-medium hover:underline cursor-pointer">
+            ¿Olvidaste tu contraseña?
+          </p>
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+            Acceso administrativo restringido
+          </p>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Contraseña
-          </label>
-          <input
-            type="password"
-            required
-            className="
-              w-full
-              p-4
-              text-base
-              border border-rosa-pastel
-              rounded-xl
-              mt-1
-              focus:ring-2 focus:ring-rosa-fuerte
-              outline-none
-            "
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="
-            w-full
-            btn-principal
-            py-4
-            rounded-xl
-            font-semibold
-            shadow-md
-          "
-        >
-          {loading ? "Ingresando..." : "Ingresar"}
-        </button>
-      </form>
-
-      <p className="text-center mt-6 text-sm text-rosa-fuerte hover:underline cursor-pointer">
-        ¿Olvidaste tu contraseña?
-      </p>
-
-      <p className="text-center mt-2 text-xs text-gray-500">
-        Solo el administrador puede gestionar cuentas.
-      </p>
+      </div>
     </div>
-  </div>
-);
+  );
 }
