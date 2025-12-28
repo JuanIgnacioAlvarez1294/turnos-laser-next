@@ -9,7 +9,7 @@ export default function HomePage() {
       {/* 🌸 HERO */}
       <section className="relative min-h-[85vh] flex items-center justify-center">
         <Image
-          src="/images/hero-principal.jpg" // 👉 reemplazar imagen hero principal
+          src="/images/hero-principal.webp"
           alt="Laser Divino"
           fill
           priority
@@ -65,11 +65,13 @@ export default function HomePage() {
         </div>
         <div className="flex justify-center">
           <Image
-            src="/images/nosotras.jpg" // 👉 foto del equipo
+            src="/images/nosotras.webp"
             alt="Equipo Laser Divino"
             width={520}
             height={380}
+            sizes="(max-width: 768px) 90vw, 520px"
             className="rounded-2xl shadow-xl"
+            loading="lazy"
           />
         </div>
       </section>
@@ -86,10 +88,12 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
               <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
                 <Image
-                  src="/images/depilacion.jpg"
+                  src="/images/depilacion.webp"
                   alt="Depilación láser"
                   fill
+                  sizes="(max-width: 768px) 90vw, 400px"
                   className="object-cover"
+                  loading="lazy"
                 />
               </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
@@ -112,10 +116,12 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
               <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
                 <Image
-                  src="/images/manicuria.png"
+                  src="/images/manicuria.webp"
                   alt="Manicuría"
                   fill
+                  sizes="(max-width: 768px) 90vw, 400px"
                   className="object-cover"
+                  loading="lazy"
                 />
               </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
@@ -147,11 +153,13 @@ export default function HomePage() {
         <div className="grid md:grid-cols-3 gap-10 text-center">
           <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
             <Image
-              src="/images/atencion-personalizada.png"
+              src="/images/atencion-personalizada.webp"
               alt="Atención personalizada"
               width={300}
               height={200}
+              sizes="300px"
               className="rounded-xl mx-auto mb-4"
+              loading="lazy"
             />
             <h3 className="text-xl font-semibold text-rosa-oscuro mb-2">
               Atención personalizada
@@ -165,7 +173,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
             <Image
-              src="/images/ambiente-calido.png"
+              src="/images/ambiente-calido.webp"
               alt="Ambiente cálido y profesional"
               width={300}
               height={200}
@@ -183,7 +191,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
             <Image
-              src="/images/resultados-visibles.png" // 👉 imagen resultados
+              src="/images/resultados-visibles.webp"
               alt="Resultados visibles"
               width={300}
               height={200}
@@ -228,6 +236,7 @@ export default function HomePage() {
           width={34}
           height={34}
           alt="WhatsApp"
+          priority
           className="invert brightness-0"
         />
       </a>
