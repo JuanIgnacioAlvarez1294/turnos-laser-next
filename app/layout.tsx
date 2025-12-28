@@ -11,7 +11,14 @@ export const metadata: Metadata = {
   title: 'Láser Divino',
   description: 'Depilación Láser - Turnos online',
   icons: {
-    icon: '/images/logo-laserdivino.png',
+    icon: '/images/logo-laserdivino.avif',
+  },
+   other: {
+    preconnect: [
+      'https://www.googleapis.com',
+      'https://apis.google.com',
+      'https://turnos-laser.firebaseapp.com',
+    ],
   },
 };
 

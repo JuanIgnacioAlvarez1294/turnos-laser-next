@@ -12,9 +12,14 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Inicialización única y segura
+export function getFirebaseApp() {
+  if (!getApps().length) {
+    return initializeApp(firebaseConfig);
+  }
+  return getApps()[0];
+}
+
 export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-// Exportamos DB y Auth desde aquí para que todos usen la MISMA instancia
 export const db = getFirestore(app);
 export const auth = getAuth(app);
