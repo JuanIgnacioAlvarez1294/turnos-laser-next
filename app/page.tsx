@@ -9,7 +9,7 @@ export default function HomePage() {
       {/* 🌸 HERO */}
       <section className="relative min-h-[85vh] flex items-center justify-center">
         <Image
-          src="/images/hero-principal.webp"
+          src="/images/hero-principal-desktop.webp"
           alt="Laser Divino"
           fill
           priority
@@ -77,34 +77,35 @@ export default function HomePage() {
       </section>
 
       {/* 🌸 SERVICIOS */}
-      <section id="servicios" className="bg-rosa-pastel/40 py-20 px-6 sm:px-8">
-        <div className="max-w-6xl mx-auto text-center">
+      <section id="servicios" className="bg-rosa-pastel/40 py-20">
+        <div className="container text-center">
           <h2 className="text-3xl font-bold text-rosa-oscuro mb-12">
             Nuestros Servicios
           </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-items-center">
             {/* DEPILACIÓN */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
-              <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
-                <Image
-                  src="/images/depilacion.webp"
-                  alt="Depilación láser"
-                  fill
-                  sizes="(max-width: 768px) 90vw, 400px"
-                  className="object-cover"
-                  loading="lazy"
-                />
+            <div className="bg-white rounded-2xl shadow-lg p-8 max-w-[380px] w-full">
+              <div className="h-[220px] w-full mb-6 overflow-hidden rounded-xl">
+                <picture>
+                  <source
+                    media="(max-width: 768px)"
+                    srcSet="/images/depilacion-mobile.webp"
+                  />
+
+                  <img
+                    src="/images/depilacion-desktop.webp"
+                    alt="Depilación láser"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
                 Depilación Láser
               </h3>
               <p className="mb-4 leading-relaxed">
-                Utilizamos tecnología de última generación que actúa de forma
-                segura y progresiva, reduciendo el vello desde las primeras
-                sesiones. Nuestros tratamientos son personalizados según tu tipo
-                de piel y vello, garantizando comodidad, eficacia y resultados
-                visibles.
+                Tecnología de última generación, tratamientos personalizados y
+                resultados visibles desde las primeras sesiones.
               </p>
               <Link href="/reservas">
                 <button className="btn-principal rounded-full px-6">
@@ -113,26 +114,28 @@ export default function HomePage() {
               </Link>
             </div>
             {/* MANICURÍA */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition">
-              <div className="relative w-full h-[300px] mb-6 rounded-xl overflow-hidden">
-                <Image
-                  src="/images/manicuria.webp"
-                  alt="Manicuría"
-                  fill
-                  sizes="(max-width: 768px) 90vw, 400px"
-                  className="object-cover"
-                  loading="lazy"
-                />
+            <div className="bg-white rounded-2xl shadow-lg p-8 max-w-[380px] w-full">
+              <div className="h-[220px] w-full mb-6 overflow-hidden rounded-xl">
+                <picture>
+                  <source
+                    media="(max-width: 768px)"
+                    srcSet="/images/manicuria-mobile.webp"
+                  />
+
+                  <img
+                    src="/images/manicuria-desktop.webp"
+                    alt="Manicuría profesional"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
               <h3 className="text-2xl font-semibold text-rosa-oscuro mb-3">
                 Manicuría
               </h3>
               <p className="mb-4 leading-relaxed">
-                Ofrecemos servicios de manicuría pensados para realzar la
-                belleza natural de tus manos. Trabajamos con productos de
-                calidad, técnicas cuidadosas y un enfoque en la higiene y el
-                detalle, para que disfrutes un resultado prolijo, elegante y
-                duradero.
+                Servicios de manicuría con productos de calidad, higiene y
+                resultados prolijos y duraderos.
               </p>
               <Link href="/reservas">
                 <button className="btn-principal rounded-full px-6">
