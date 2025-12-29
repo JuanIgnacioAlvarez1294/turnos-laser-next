@@ -13,7 +13,7 @@ const nextConfig = {
 
   images: {
 
-    unoptimized: false,
+    unoptimized: true,
     
     formats: ['image/avif', 'image/webp'],
 
