@@ -15,24 +15,43 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-rosa shadow-md py-3">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-rosa-oscuro text-lg font-bold">
+    <nav className="bg-rosa shadow-md">
+      <div className="container mx-auto flex justify-between items-center py-4">
+        {/* LOGO */}
+        <Link
+          href="/"
+          className="text-rosa-oscuro text-xl font-extrabold tracking-wide"
+        >
           Láser Divino
         </Link>
 
-        <div className="space-x-4 flex items-center">
+        {/* LINKS */}
+        <div className="flex items-center gap-3">
+          {/* RESERVAS — CTA */}
           <Link
             href="/reservas"
-            className="text-gris-texto hover:text-rosa-oscuro"
+            className="
+              px-4 py-2 rounded-full
+              bg-rosa-oscuro text-white
+              font-semibold text-sm
+              hover:bg-rosa-oscuro/90
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-rosa-oscuro
+              transition
+            "
           >
             Reservas
           </Link>
 
+          {/* ADMIN */}
           {user && (
             <Link
               href="/admin"
-              className="text-gris-texto hover:text-rosa-oscuro"
+              className="
+                px-3 py-2 rounded-lg
+                text-gris-texto font-medium text-sm
+                hover:text-rosa-oscuro hover:bg-white/40
+                transition
+              "
             >
               Admin
             </Link>
@@ -41,18 +60,29 @@ const Navbar: React.FC = () => {
           {!user && (
             <Link
               href="/admin/login"
-              className="text-gris-texto hover:text-rosa-oscuro"
+              className="
+                px-3 py-2 rounded-lg
+                text-gris-texto font-medium text-sm
+                hover:text-rosa-oscuro hover:bg-white/40
+                transition
+              "
             >
               Login Admin
             </Link>
           )}
 
+          {/* LOGOUT */}
           {user && (
             <button
               onClick={logout}
-              className="text-red-600 hover:text-red-700 font-semibold"
+              className="
+                px-3 py-2 rounded-lg
+                text-red-600 font-semibold text-sm
+                hover:bg-red-50 hover:text-red-700
+                transition
+              "
             >
-              Cerrar Sesión
+              Cerrar sesión
             </button>
           )}
         </div>
